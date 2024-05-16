@@ -1,0 +1,47 @@
+
+.newsContainer {
+  display: flex;
+  padding: 40px;
+  column-gap: 40px;
+  align-content: center;
+  justify-content: center;
+}
+
+.img-container {
+  height: 400px;
+  width: 600px;
+}
+
+.news-image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.content {
+  padding-top: 5px;
+  width: 600px;
+}
+
+p {
+  font-size: 18px;
+  line-height: 25px;
+}
+
+h1 {
+  font-weight: bolder;
+}
+
+a.nostyle:link {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+a.nostyle:visited {
+  text-decoration: underline;
+  color: rgb(77, 77, 255);
+}
+
+a.nostyle:hover {
+  color: rgb(77, 77, 255);
+}
