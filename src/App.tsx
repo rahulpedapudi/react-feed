@@ -9,9 +9,11 @@ import API_KEY from "../env.ts";
 
 const App = () => {
   const APIurl = "https://newsapi.org/v2/everything";
+  const API_Headlines = "https://newsapi.org/v2/top-headlines";
 
   // state management
   const [articles, setArticles] = useState([]); // articles that are fetched
+  const [headline, setHeadline] = useState([]);
   const [search, setSearch] = useState("trending"); // search parameter -- default set to trending
   const [userSearch, setUserSearch] = useState(""); // user's search
 
@@ -20,6 +22,7 @@ const App = () => {
   useEffect(() => {
     // console.log(search);
     fetchData();
+    fetchHeadlines();
   }, [search]);
 
   // function to fetch data from API
@@ -30,13 +33,34 @@ const App = () => {
           q: search, // q: Keywords or phrases to search for in the article title and body.
           sortBy: "relevancy", // order to sort the articles
           pageSize: 5, // maximum number of results
+          language: "en",
         },
+
         headers: {
           "X-Api-Key": API_KEY, // API key
         },
       });
       // console.log(response.data);
       setArticles(response.data.articles); // setting articles which are fetched
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
+  };
+
+  const fetchHeadlines = async () => {
+    try {
+      const response = await axios.get(API_Headlines, {
+        params: {
+          category: "general",
+          pageSize: 2, // maximum number of results
+          language: "en",
+        },
+        headers: {
+          "X-Api-Key": API_KEY, // API key
+        },
+      });
+      setHeadline(response.data.articles);
+      console.log(response.data.articles);
     } catch (error) {
       console.error("Failed to fetch data:", error);
     }
@@ -62,7 +86,7 @@ const App = () => {
         onsubmit={(e) => handleSubmit(e)}
         onchange={(e) => handleSearch(e)}
       />
-      <HeaderCard />
+      <HeaderCard data={headline} />
       <NewsCard fetchedData={articles} />;
     </>
   );

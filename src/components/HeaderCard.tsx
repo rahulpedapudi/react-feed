@@ -1,10 +1,25 @@
-const HeaderCard = () => {
+type Article = {
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+};
+
+type HeaderProps = {
+  data: Article[];
+};
+const HeaderCard = ({ data }: HeaderProps) => {
   return (
-    <div>
-      {/* <img src="" /> */}
-      <h1>Title</h1>
-      <h3>Content</h3>
-    </div>
+    <>
+      {data.map((headline, index) => {
+        return (
+          <div key={index}>
+            <img src={headline.urlToImage} alt="" />;<h1>{headline.title}</h1>;
+            <h3>{headline.description}</h3>;
+          </div>
+        );
+      })}
+    </>
   );
 };
 
