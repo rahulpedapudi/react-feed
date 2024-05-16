@@ -1,7 +1,7 @@
 const HeaderCard = () => {
   return (
     <div>
-      <img src="" />
+      {/* <img src="" /> */}
       <h1>Title</h1>
       <h3>Content</h3>
     </div>

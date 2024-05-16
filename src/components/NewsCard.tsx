@@ -1,12 +1,26 @@
-import data from "../data";
 import "../newscard.css";
-const NewsCard = () => {
-  const newsArticles = data.articles;
+
+// type for article (data fetched by api)
+type Article = {
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+};
+
+// type for props, which is received by NewsCard. (array of articles)
+type NewsCardProps = {
+  fetchedData: Article[];
+};
+
+// TODO: Add Source/ Author of each article
+const NewsCard = ({ fetchedData }: NewsCardProps) => {
   return (
     <>
-      {newsArticles.map((newsContent) => {
+      {/* mapping through each article and rendering  */}
+      {fetchedData.map((newsContent: any, index: number) => {
         return (
-          <div className="newsContainer">
+          <div key={index} className="newsContainer">
             <div className="img-container">
               <img
                 className="news-image"
