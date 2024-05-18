@@ -3,6 +3,7 @@ import "./index.css";
 import NewsCard from "./components/NewsCard";
 import HeaderCard from "./components/HeaderCard";
 import NavBar from "./components/NavBar";
+import Spinner from "./components/Spinner";
 import { useState, useEffect } from "react";
 import API_KEY from "../env.ts";
 
@@ -16,18 +17,25 @@ const App = () => {
   const [search, setSearch] = useState("trending"); // search parameter -- default set to trending
   const [userSearch, setUserSearch] = useState(""); // user's search
 
-  const [category, setCategory] = useState("technology");
+  const [category, setCategory] = useState("technology"); // headlines category
+  // loading states
+  const [articleLoading, setArticleLoading] = useState(false);
+  const [headlineLoading, setHeadlineLoading] = useState(false);
 
   // fetches data everytime search changes
   // TODO: Fetch data on user interaction. (infinite scroll?)
   useEffect(() => {
-    // console.log(search);
     fetchData();
+  }, [search]);
+
+  // renders everytime whenever category changes
+  useEffect(() => {
     fetchHeadlines();
-  }, [search, category]);
+  }, [category]);
 
   // function to fetch data from API
   const fetchData = async () => {
+    setArticleLoading(true);
     try {
       const response = await axios.get(APIurl, {
         params: {
@@ -43,12 +51,14 @@ const App = () => {
       });
       // console.log(response.data);
       setArticles(response.data.articles); // setting articles which are fetched
+      setArticleLoading(false);
     } catch (error) {
       console.error("Failed to fetch data:", error);
     }
   };
 
   const fetchHeadlines = async () => {
+    setHeadlineLoading(true);
     try {
       const response = await axios.get(API_Headlines, {
         params: {
@@ -62,6 +72,7 @@ const App = () => {
       });
       setHeadline(response.data.articles);
       console.log(response.data.articles);
+      setHeadlineLoading(false);
     } catch (error) {
       console.error("Failed to fetch data:", error);
     }
@@ -80,6 +91,7 @@ const App = () => {
     setSearch(userSearch);
   };
 
+  // function to handle category selected by user
   const handleCategoryChange = (e: any) => {
     const cat = e.target.innerHTML;
     setCategory(cat);
@@ -92,8 +104,8 @@ const App = () => {
         handleSubmit={handleSubmit}
         handleSearch={handleSearch}
       />
-      <HeaderCard data={headline} />
-      <NewsCard fetchedData={articles} />;
+      {headlineLoading ? <Spinner /> : <HeaderCard data={headline} />}
+      {articleLoading ? <Spinner /> : <NewsCard fetchedData={articles} />}
     </>
   );
 };

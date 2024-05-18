@@ -1,6 +1,7 @@
 import "../navbar.css";
 import SearchBar from "./SearchBar";
 
+// all the categories that API support
 const categories = [
   "General",
   "Entertainment",
@@ -11,6 +12,7 @@ const categories = [
   "Sports",
 ];
 
+// Navbar props
 type NavProps = {
   handleSubmit(e: React.FormEvent<HTMLFormElement>): void;
   handleSearch(e: React.FormEvent<HTMLFormElement>): void;
@@ -42,4 +44,3 @@ const NavBar = ({ handleSubmit, handleSearch, handleCategory }: NavProps) => {
 };
 
 export default NavBar;
-// business entertainment general health science sports technology
