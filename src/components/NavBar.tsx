@@ -1,12 +1,40 @@
 import "../navbar.css";
-const NavBar = () => {
+import SearchBar from "./SearchBar";
+
+const categories = [
+  "General",
+  "Entertainment",
+  "Technology",
+  "Business",
+  "Health",
+  "Science",
+  "Sports",
+];
+
+type NavProps = {
+  handleSubmit(e: React.FormEvent<HTMLFormElement>): void;
+  handleSearch(e: React.FormEvent<HTMLFormElement>): void;
+  handleCategory(e: any): void;
+};
+
+const NavBar = ({ handleSubmit, handleSearch, handleCategory }: NavProps) => {
   return (
     <div>
       <nav>
         <a href="#">FEED</a>
         <ul>
-          <li>Home</li>
-          <li>Trending</li>
+          {categories.map((category, index) => {
+            return (
+              <li
+                key={index}
+                onClick={(e) => {
+                  handleCategory(e);
+                }}>
+                {category}
+              </li>
+            );
+          })}
+          <SearchBar onchange={handleSearch} onsubmit={handleSubmit} />
         </ul>
       </nav>
     </div>
@@ -14,3 +42,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+// business entertainment general health science sports technology

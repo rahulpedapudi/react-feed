@@ -3,7 +3,6 @@ import "./index.css";
 import NewsCard from "./components/NewsCard";
 import HeaderCard from "./components/HeaderCard";
 import NavBar from "./components/NavBar";
-import SearchBar from "./components/SearchBar.tsx";
 import { useState, useEffect } from "react";
 import API_KEY from "../env.ts";
 
@@ -17,13 +16,15 @@ const App = () => {
   const [search, setSearch] = useState("trending"); // search parameter -- default set to trending
   const [userSearch, setUserSearch] = useState(""); // user's search
 
+  const [category, setCategory] = useState("technology");
+
   // fetches data everytime search changes
   // TODO: Fetch data on user interaction. (infinite scroll?)
   useEffect(() => {
     // console.log(search);
     fetchData();
     fetchHeadlines();
-  }, [search]);
+  }, [search, category]);
 
   // function to fetch data from API
   const fetchData = async () => {
@@ -51,7 +52,7 @@ const App = () => {
     try {
       const response = await axios.get(API_Headlines, {
         params: {
-          category: "general",
+          category: category,
           pageSize: 2, // maximum number of results
           language: "en",
         },
@@ -79,12 +80,17 @@ const App = () => {
     setSearch(userSearch);
   };
 
+  const handleCategoryChange = (e: any) => {
+    const cat = e.target.innerHTML;
+    setCategory(cat);
+  };
+
   return (
     <>
-      <NavBar />
-      <SearchBar
-        onsubmit={(e) => handleSubmit(e)}
-        onchange={(e) => handleSearch(e)}
+      <NavBar
+        handleCategory={handleCategoryChange}
+        handleSubmit={handleSubmit}
+        handleSearch={handleSearch}
       />
       <HeaderCard data={headline} />
       <NewsCard fetchedData={articles} />;

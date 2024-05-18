@@ -2,3 +2,19 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li {
+  cursor: pointer;
+}
