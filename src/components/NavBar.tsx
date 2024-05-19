@@ -1,4 +1,4 @@
-import "../navbar.css";
+// import "../navbar.css";
 import SearchBar from "./SearchBar";
 
 // all the categories that API support
@@ -22,12 +22,17 @@ type NavProps = {
 const NavBar = ({ handleSubmit, handleSearch, handleCategory }: NavProps) => {
   return (
     <div>
-      <nav>
-        <a href="#">FEED</a>
-        <ul>
+      <nav className=" flex mx-24 items-center justify-between">
+        <a href="#" className="font-sans font-bold text-4xl">
+          the
+          <br />
+          Feed.
+        </a>
+        <ul className="flex gap-8 justify-center ">
           {categories.map((category, index) => {
             return (
               <li
+                className=" font-body cursor-pointer"
                 key={index}
                 onClick={(e) => {
                   handleCategory(e);

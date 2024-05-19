@@ -13,9 +13,13 @@ const HeaderCard = ({ data }: HeaderProps) => {
     <>
       {data.map((headline, index) => {
         return (
-          <div key={index}>
-            <img src={headline.urlToImage} alt="" />;<h1>{headline.title}</h1>;
-            <h3>{headline.description}</h3>;
+          <div className=" flex" key={index}>
+            <img
+              className=" w-[600px] h-[400]"
+              src={headline.urlToImage}
+              alt=""
+            />
+            ;<h1>{headline.title}</h1>;<h3>{headline.description}</h3>;
           </div>
         );
       })}
