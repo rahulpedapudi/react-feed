@@ -21,8 +21,8 @@ type NavProps = {
 
 const NavBar = ({ handleSubmit, handleSearch, handleCategory }: NavProps) => {
   return (
-    <div>
-      <nav className=" flex mx-24 items-center justify-between">
+    <div className="bg-black h-[100px] py-2">
+      <nav className=" text-white flex mx-20 items-center justify-between">
         <a href="#" className="font-sans font-bold text-4xl">
           the
           <br />
@@ -32,7 +32,7 @@ const NavBar = ({ handleSubmit, handleSearch, handleCategory }: NavProps) => {
           {categories.map((category, index) => {
             return (
               <li
-                className=" font-body cursor-pointer"
+                className="font-body cursor-pointer hover:underline underline-offset-8"
                 key={index}
                 onClick={(e) => {
                   handleCategory(e);

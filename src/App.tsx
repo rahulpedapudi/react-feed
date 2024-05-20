@@ -24,11 +24,11 @@ const App = () => {
 
   // fetches data everytime search changes
   // TODO: Fetch data on user interaction. (infinite scroll?)
-  useEffect(() => {
-    fetchData();
-  }, [search]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [search]);
 
-  // renders everytime whenever category changes
+  // // renders everytime whenever category changes
   useEffect(() => {
     fetchHeadlines();
   }, [category]);
@@ -41,7 +41,7 @@ const App = () => {
         params: {
           q: search, // q: Keywords or phrases to search for in the article title and body.
           sortBy: "relevancy", // order to sort the articles
-          pageSize: 5, // maximum number of results
+          pageSize: 2, // maximum number of results
           language: "en",
         },
 
@@ -63,7 +63,7 @@ const App = () => {
       const response = await axios.get(API_Headlines, {
         params: {
           category: category,
-          pageSize: 2, // maximum number of results
+          pageSize: 4, // maximum number of results
           language: "en",
         },
         headers: {

@@ -11,23 +11,23 @@ const SearchBar = (props: searchProps) => {
           <span className="sr-only">Search</span>
           <span className="absolute inset-y-0 right-0 flex items-center pl-2">
             <svg
-              className="h-5 w-5 fill-slate-300"
+              className="h-4 w-4 fill-slate-300"
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
               y="0px"
-              width="100"
-              height="100"
+              width="70"
+              height="70"
               viewBox="0 0 30 30">
               <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z"></path>
             </svg>
           </span>
           <input
-            className=" font-body placeholder:italic placeholder:text-slate-400 block bg-white w-full border-b-[1.6px] border-black py-1 pl-3 pr-5  focus:outline-none  sm:text-sm"
+            className=" font-body placeholder:italic placeholder:text-slate-400 block bg-black w-full border-b-[1.2px] border-white py-1 pl-3 pr-5  focus:outline-none  sm:text-sm"
             placeholder="Search for articles"
             onChange={(e) => props.onchange(e)}
             type="search"
             name="search"
-            id="search-box"
+            id="Search"
           />
         </label>
       </form>

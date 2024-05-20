@@ -36,3 +36,5 @@ const headline = [
 ];
 
 export default headline;
+
+console.log(headline[0].title);
