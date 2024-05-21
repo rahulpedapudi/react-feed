@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import Spinner from "./components/Spinner";
 import { useState, useEffect } from "react";
 import API_KEY from "../env.ts";
+import TopArticles from "./components/TopArticles.tsx";
 
 const App = () => {
   const APIurl = "https://newsapi.org/v2/everything";
@@ -14,6 +15,7 @@ const App = () => {
   // state management
   const [articles, setArticles] = useState([]); // articles that are fetched
   const [headline, setHeadline] = useState([]);
+  const [topArticles, setTopArticles] = useState([]);
   const [search, setSearch] = useState("trending"); // search parameter -- default set to trending
   const [userSearch, setUserSearch] = useState(""); // user's search
 
@@ -21,14 +23,19 @@ const App = () => {
   // loading states
   const [articleLoading, setArticleLoading] = useState(false);
   const [headlineLoading, setHeadlineLoading] = useState(false);
+  const [topArticlesLoading, setTopArticlesLoading] = useState(false);
 
   // fetches data everytime search changes
   // TODO: Fetch data on user interaction. (infinite scroll?)
-  // useEffect(() => {
-  //   fetchData();
-  // }, [search]);
+  useEffect(() => {
+    fetchData();
+  }, [search]);
 
-  // // renders everytime whenever category changes
+  useEffect(() => {
+    fetchTopArticles();
+  }, []);
+
+  // renders everytime whenever category changes
   useEffect(() => {
     fetchHeadlines();
   }, [category]);
@@ -40,7 +47,7 @@ const App = () => {
       const response = await axios.get(APIurl, {
         params: {
           q: search, // q: Keywords or phrases to search for in the article title and body.
-          sortBy: "relevancy", // order to sort the articles
+          sortBy: "publishedAt", // order to sort the articles
           pageSize: 2, // maximum number of results
           language: "en",
         },
@@ -78,6 +85,30 @@ const App = () => {
     }
   };
 
+  const fetchTopArticles = async () => {
+    setTopArticlesLoading(true);
+    try {
+      const response = await axios.get(APIurl, {
+        params: {
+          q: "technology+engineering+software", // q: Keywords or phrases to search for in the article title and body.
+          sortBy: "popularity", // order to sort the articles
+          searchIn: "content",
+          pageSize: 3, // maximum number of results
+          language: "en",
+        },
+
+        headers: {
+          "X-Api-Key": API_KEY, // API key
+        },
+      });
+      setTopArticlesLoading(false);
+      setTopArticles(response.data.articles);
+      console.log(response.data.articles);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
+  };
+
   // function to handle the user input (search)
   const handleSearch = (e: any) => {
     // console.log(e.target.value);
@@ -105,6 +136,7 @@ const App = () => {
         handleSearch={handleSearch}
       />
       {headlineLoading ? <Spinner /> : <HeaderCard data={headline} />}
+      {topArticlesLoading ? <Spinner /> : <TopArticles data={topArticles} />}
       {articleLoading ? <Spinner /> : <NewsCard fetchedData={articles} />}
     </>
   );
